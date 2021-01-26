@@ -1,0 +1,28 @@
+from sys import*
+input = lambda:stdin.readline().strip()
+
+
+def dfs(index):
+    if len(result) == 7:
+        if sum(result) == 100:
+            result.sort()
+            print(*result)
+            exit()
+        else:
+            return
+
+    for j in range(index, 9):
+        if not visit[j]:
+            result.append(height[j])
+            visit[j] = True
+            dfs(j + 1)
+            result.pop()
+            visit[j] = False
+
+
+height = []
+result = []
+visit = [False] * 9
+for i in range(9):
+    height.append(int(input()))
+dfs(0)

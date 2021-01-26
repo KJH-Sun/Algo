@@ -1,0 +1,24 @@
+def comb(case):
+    if sum(case) > m:
+        return
+    else:
+        jack[m - sum(case)] = sum(case)
+
+
+from sys import *
+from itertools import *
+
+input = lambda: stdin.readline().rstrip()
+
+n, m = map(int, input().split())
+cnum = []
+result = []
+last = []
+jack = {}
+visit = [False] * n
+cnum = [int(x) for x in input().split()]
+
+for case in combinations(cnum, 3):
+    comb(case)
+
+print(jack[min(jack)])

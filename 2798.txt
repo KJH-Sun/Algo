@@ -1,0 +1,30 @@
+from sys import*
+input = lambda: stdin.readline().rstrip()
+
+
+def comb(index):
+    if len(result) == 3:
+        if sum(result)>m:
+            return
+        else:
+            jack[m - sum(result)] = sum(result)
+        return
+
+    for i in range(index, n):
+        if not visit[i]:
+            result.append(cnum[i])
+            visit[i]=True
+            comb(i+1)
+            visit[i]=False
+            result.pop()
+
+
+n, m = map(int, input().split())
+cnum = []
+result = []
+last = []
+jack = {}
+visit = [False]*n
+cnum = [int(x) for x in input().split()]
+comb(0)
+print(jack[min(jack)])
