@@ -1,0 +1,22 @@
+from sys import*
+input = lambda : stdin.readline().rstrip()
+
+visit = []
+connect = {}
+
+def solve(num, connect):
+    for i in connect[num]:
+        if i not in visit:
+            visit.append(i)
+            solve(i, connect)
+
+
+for i in range(int(input())):
+    connect[i+1] = set()
+for i in range(int(input())):
+    a, b = map(int, input().split())
+    connect[a].add(b)
+    connect[b].add(a)
+
+solve(1, connect)
+print(len(visit)-1)
