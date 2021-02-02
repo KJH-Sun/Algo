@@ -1,0 +1,63 @@
+package day01;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Solution {
+	final static int MAX = 100;
+	static int[][] field = new int[MAX][MAX];
+
+	static int[] dx = { 0, 0, -1 };
+	static int[] dy = { -1, 1, 0 };// 왼쪽, 오른쪽, 위
+	static int start = 0;
+	static int result = 0; //
+
+	static void solve(int x, int y, boolean[][] visit) {
+		if (x == 0) {
+			result = y;
+			return;
+		}
+		visit[x][y] = true;
+
+		for (int i = 0; i < 3; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			if (0 <= ny && ny < 100 && 0 <= nx && nx < 100) {
+				if (field[nx][ny] == 1 && !visit[nx][ny]) {
+					solve(nx, ny, visit);
+					return;
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuffer sb = new StringBuffer();
+
+		for (int t = 0; t < 10; t++) {
+			int tc = Integer.parseInt(br.readLine());
+			boolean[][] visit = new boolean[MAX][MAX];
+			for (int i = 0; i < MAX; i++) {
+
+				StringTokenizer st = new StringTokenizer(br.readLine());
+
+				for (int j = 0; j < MAX; j++) {
+
+					field[i][j] = Integer.parseInt(st.nextToken());
+
+					if (field[i][j] == 2) {
+						start = j;
+					}
+				}
+			}
+			solve(99, start, visit);
+			sb.append("#" + tc + " " + result + "\n");
+
+		}
+		System.out.println(sb);
+		br.close();
+	}
+}
