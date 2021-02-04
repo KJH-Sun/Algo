@@ -1,0 +1,46 @@
+from sys import *
+from collections import *
+
+input = lambda: stdin.readline().rstrip()
+
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+
+
+def bfs(x, y):
+    res = deque()
+    res.append((x, y))
+    visit[x][y] = True
+    count = 1
+    while (res):
+        x, y = res.popleft()
+        for i in range(4):
+            nx = dx[i] + x
+            ny = dy[i] + y
+            if 0 <= nx < T and 0 <= ny < T and not visit[nx][ny] and field[nx][ny] == '1':
+                count += 1
+                res.append((nx, ny))
+                visit[nx][ny] = True
+    return count
+
+
+T = int(input())
+field = [[0] * T for _ in range(T)]
+visit = [[False] * T for _ in range(T)]
+tc = 0
+numlist = []
+for i in range(T):
+    str = input()
+    for j in range(T):
+        field[i][j] = str[j]
+
+for i in range(T):
+    for j in range(T):
+        if not visit[i][j] and field[i][j] == '1':
+            tc += 1
+            numlist.append(bfs(i, j))
+
+print(tc)
+numlist.sort()
+for i in numlist:
+    print(i)

@@ -1,0 +1,40 @@
+from sys import *
+from collections import *
+input = lambda : stdin.readline().rstrip()
+
+
+def bfs(x, y):
+    res = deque()
+    res.append((x, y))
+    visit[x][y] = True
+
+    while(res):
+        x,y = res.popleft()
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+            if 0 <= nx < n and 0 <= ny < m and not visit[nx][ny] and field[nx][ny] == 1:
+                res.append((nx, ny))
+                visit[nx][ny] = True
+
+
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+T = int(input())
+for _ in range(T):
+    n, m, c = map(int, input().split())
+    field = [[0] * m for _ in range(n)]
+    visit = [[False] * m for _ in range(n)]
+
+    for _ in range(c):
+        i, j = map(int, input().split())
+        field[i][j] = 1
+
+    count = 0
+    for i in range(n):
+        for j in range(m):
+            if field[i][j] == 1 and not visit[i][j]:
+                bfs(i, j)
+                count += 1
+    print(count)
+

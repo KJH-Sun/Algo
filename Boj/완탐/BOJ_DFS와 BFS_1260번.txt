@@ -1,0 +1,46 @@
+from sys import *
+from collections import *
+input = lambda: stdin.readline().rstrip()
+
+# 이거 조정합시당
+def dfs(v):
+    # set으로 받은걸 정렬해서 list로 재반환
+    for u in graph.keys():
+        graph[u] = sorted(graph[u])
+    for i in graph[v]:
+        if i not in res:
+            res.append(i)
+            dfs(i)
+
+def bfs(v):
+    queres.append(v)
+    res.append(v)
+    while(queres):
+        x = queres.popleft()
+        for i in graph[x]:
+            if i in res:
+                continue
+            res.append(i)
+            queres.append(i)
+
+
+
+
+N, M, V = map(int, input().split())
+# field = [0 * N for _ in range(N)]
+graph = {}
+res = []
+queres = deque()
+for i in range(N):
+    graph[i + 1] = set()
+for i in range(M):
+    x, y = map(int, input().split())
+    graph[x].add(y)
+    graph[y].add(x)
+
+res.append(V)
+dfs(V)
+print(*res)
+res=[]
+bfs(V)
+print(*res)
