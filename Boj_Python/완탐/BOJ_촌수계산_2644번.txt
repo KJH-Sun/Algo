@@ -1,0 +1,39 @@
+from sys import *
+from collections import *
+
+input = lambda: stdin.readline().rstrip()
+
+
+def bfs(a):
+    res = deque()
+    res.append(a)
+    while res:
+        x = res.popleft()
+        for i in family[x]:
+            if not time[i]:
+                time[i] = time[x] + 1
+                res.append(i)
+
+
+N = int(input())
+A, B = map(int, input().split())
+M = int(input())
+MAX = 101
+family = {}
+time = [0] * MAX
+for i in range(N + 1):
+    family[i + 1] = set()
+
+for i in range(M):
+    x, y = map(int, input().split())
+    family[x].add(y)
+    family[y].add(x)
+
+if A == B:
+    print(0)
+    exit()
+bfs(A)
+if not time[B]:
+    print(-1)
+else:
+    print(time[B])
