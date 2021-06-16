@@ -1,4 +1,4 @@
-package BOJ;
+package BOJ.그래프;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.function.Function;
 
-public class 너구리구구 {
+public class BOJ_18126_너구리구구 {
 
     static int N;
     static Function<String, Integer> stoi = Integer::parseInt;
