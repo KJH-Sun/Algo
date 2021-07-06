@@ -1,4 +1,4 @@
-package Programmers;
+package Programmers.위클리챌린지;
 
 import java.util.HashMap;
 import java.util.Map;
