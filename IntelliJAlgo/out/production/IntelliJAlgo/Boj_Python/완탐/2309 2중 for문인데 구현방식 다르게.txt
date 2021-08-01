@@ -1,0 +1,16 @@
+from sys import*
+input = lambda:stdin.readline().rstrip()
+
+height = []
+for i in range(9):
+    height.append(int(input()))
+total = sum(height)
+for i in range(9):
+    for j in range(i+1, 9):
+        if total - height[i] - height[j]==100:
+            for k in range(9):
+                if k==i or k==j:
+                    continue
+                else:
+                    print(height[k])
+            exit()

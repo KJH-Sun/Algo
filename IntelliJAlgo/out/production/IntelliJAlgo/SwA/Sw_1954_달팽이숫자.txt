@@ -1,0 +1,80 @@
+package day02;
+
+import java.util.Scanner;
+
+public class Sw_1954_달팽이숫자 {
+
+	static int[][] snail(int dir, int[][] land, int n) {
+		int x = 0;
+		int y = 0;
+		int num = 1;
+		int count = 0;
+		int total = 0;
+		while (total < n * n) {
+			switch (dir) {
+			case 0:
+				for (int i = 0; i < n - count * 2; i++) {
+					land[x][y++] = num++;
+					total++;
+				}
+				dir = 1;
+				x++;
+				y--;
+				break;
+			case 1:
+				for (int i = 0; i < n - 1 - count * 2; i++) {
+					land[x++][y] = num++;
+					total++;
+				}
+				dir = 2;
+				y--;
+				x--;
+				break;
+			case 2:
+				for (int i = 0; i < n - 1 - count * 2; i++) {
+					land[x][y--] = num++;
+					total++;
+				}
+				dir = 3;
+				x--;
+				y++;
+				break;
+			case 3:
+				for (int i = 0; i < n - 2 - count * 2; i++) {
+					land[x--][y] = num++;
+					total++;
+				}
+				dir = 0;
+				count++;
+				y++;
+				x++;
+				break;
+			}
+		}
+		return land;
+
+	}
+
+	public static void main(String args[]) throws Exception {
+
+		Scanner sc = new Scanner(System.in);
+		int T;
+		T = sc.nextInt();
+
+		for (int tc = 1; tc <= T; tc++) {
+
+			int N = sc.nextInt();
+			int[][] cube = new int[N][N];
+			cube = snail(0, cube, N);
+			System.out.printf("#%d\n", tc);
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					System.out.print(cube[i][j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		sc.close();
+	}
+
+}

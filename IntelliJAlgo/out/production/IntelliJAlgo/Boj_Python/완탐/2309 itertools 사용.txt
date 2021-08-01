@@ -1,0 +1,22 @@
+# itertools 사용
+from sys import*
+from itertools import*
+input = lambda:stdin.readline().rstrip()
+
+def solve(case):
+    if sum(case)==100:
+        case = list(case)
+        case.sort()
+        print(*case)
+        return True
+    return False
+
+height = []
+result = []
+visit = [False] * 9
+for i in range(9):
+    height.append(int(input()))
+
+for case in combinations(height, 7):
+    if solve(case):
+        break
