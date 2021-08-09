@@ -15,6 +15,7 @@ public class 징검다리건너기 {
     public static int solution(int[] stones, int k) {
         int bot = 1;
         int top = 200000000;
+
         int mid = 0;
         while (bot <= top) {
             mid = (top + bot) / 2;
