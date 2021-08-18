@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+    카카오 인턴십
+ */
+
 public class 압축 {
 
     public static void main(String[] args) {
