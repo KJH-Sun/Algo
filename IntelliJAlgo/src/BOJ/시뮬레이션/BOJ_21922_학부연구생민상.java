@@ -24,7 +24,6 @@ public class BOJ_21922_학부연구생민상 {
     static int[] dx = {-1, 0, 1, 0};
     static int[] dy = {0, 1, 0, -1};
     static boolean[][][] visit;
-    static List<Node> AC = new ArrayList<>();
     static Queue<Wind> que = new ArrayDeque<>();
 
     public static void main(String[] args) throws IOException {
