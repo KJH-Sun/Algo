@@ -8,7 +8,7 @@ import java.util.List;
 public class No2 {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(solution(new String[]{"R"})));
+        System.out.println(Arrays.toString(solution(new String[]{"SL", "LR"})));
     }
 
     static final int LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3;
@@ -36,42 +36,70 @@ public class No2 {
         for (Circle c : circles) {
             for (int i = 0; i < 4; i++) {
                 if (!visit[c.pos.x][c.pos.y][i]) {
-                    dfs(c, i, 0);
+                    shoot(c, i);
+//                    dfs(c, i, 0);
                 }
             }
         }
-        ans.sort(Collections.reverseOrder());
+        Collections.sort(ans);
         return ans.stream().mapToInt(i -> i).toArray();
     }
 
-    private static void dfs(Circle c, int dir, int cnt) {
-        if (visit[c.pos.x][c.pos.y][dir]) {
-            ans.add(cnt);
-            return;
+    private static void shoot(Circle c, int d) {
+        int dir = d;
+        int cnt = 0;
+        while (!visit[c.pos.x][c.pos.y][dir]) {
+            visit[c.pos.x][c.pos.y][dir] = true;
+            cnt++;
+            switch (c.grid) {
+                case 'L':
+                    if (dir == LEFT || dir == DOWN) {
+                        dir = dir == LEFT ? DOWN : RIGHT;
+                    } else { // RIGHT UP
+                        dir = dir == RIGHT ? UP : LEFT;
+                    }
+                    break;
+                case 'R':
+                    if (dir == LEFT || dir == DOWN) {
+                        dir = dir == LEFT ? UP : LEFT;
+                    } else { // RIGHT UP
+                        dir = dir == RIGHT ? DOWN : RIGHT;
+                    }
+                    break;
+            }
+            int nx = (c.pos.x + dx[dir] + N * N) % N;
+            int ny = (c.pos.y + dy[dir] + M * M) % M;
+            c = new Circle(new Node(nx, ny), map[nx][ny]);
         }
-        visit[c.pos.x][c.pos.y][dir] = true;
-        switch (c.grid) {
-            case 'S':
-                break;
-            case 'L':
-                if (dir == LEFT || dir == DOWN) {
-                    dir = dir == LEFT ? DOWN : RIGHT;
-                } else { // RIGHT UP
-                    dir = dir == RIGHT ? UP : LEFT;
-                }
-                break;
-            case 'R':
-                if (dir == LEFT || dir == DOWN) {
-                    dir = dir == LEFT ? UP : LEFT;
-                } else { // RIGHT UP
-                    dir = dir == RIGHT ? DOWN : RIGHT;
-                }
-                break;
-        }
-        int nx = (c.pos.x + dx[dir] + N * N) % N;
-        int ny = (c.pos.y + dy[dir] + M * M) % M;
-        dfs(new Circle(new Node(nx, ny), map[nx][ny]), dir, cnt + 1);
+        ans.add(cnt);
     }
+
+//    private static void dfs(Circle c, int dir, int cnt) {
+//        if (visit[c.pos.x][c.pos.y][dir]) {
+//            ans.add(cnt);
+//            return;
+//        }
+//        visit[c.pos.x][c.pos.y][dir] = true;
+//        switch (c.grid) {
+//            case 'L':
+//                if (dir == LEFT || dir == DOWN) {
+//                    dir = dir == LEFT ? DOWN : RIGHT;
+//                } else { // RIGHT UP
+//                    dir = dir == RIGHT ? UP : LEFT;
+//                }
+//                break;
+//            case 'R':
+//                if (dir == LEFT || dir == DOWN) {
+//                    dir = dir == LEFT ? UP : LEFT;
+//                } else { // RIGHT UP
+//                    dir = dir == RIGHT ? DOWN : RIGHT;
+//                }
+//                break;
+//        }
+//        int nx = (c.pos.x + dx[dir] + N * N) % N;
+//        int ny = (c.pos.y + dy[dir] + M * M) % M;
+//        dfs(new Circle(new Node(nx, ny), map[nx][ny]), dir, cnt + 1);
+//    }
 
     static class Circle {
 
